@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class Rewind : MonoBehaviour
 {
-    private bool rewinding = false;
+    private bool _rewinding = false;
 
     // If we want premature optimization, we could make this a Vector2[] with a predefined size and slice it when needed.
     // Then we could reuse the array without clearing or garbage collection. Need to use a counter with it though.
     private List<Vector2> History = new List<Vector2>();
 
     public bool Rewinding { 
-        get => rewinding; 
+        get => _rewinding; 
         set 
         {
-            rewinding = value;
+            _rewinding = value;
             if (value)
             {
                 History.Reverse();
