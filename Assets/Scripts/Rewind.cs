@@ -9,6 +9,8 @@ public class Rewind : MonoBehaviour
     // Then we could reuse the array without clearing or garbage collection. Need to use a counter with it though.
     private List<Vector2> History = new List<Vector2>();
 
+    //TODO Maybe include rotation and other needed stuff into history?
+
     public bool Rewinding { 
         get => _rewinding; 
         set 

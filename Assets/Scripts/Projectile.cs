@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+/// <summary>
+/// A component the will make a GameObject move in the forward (or up for 2D?) direction. Make sure to set it's rotation when instantiated
+/// </summary>
+public class Projectile : MonoBehaviour
 {
     public AnimationCurve PauseCurve; // The animation curve to apply movement falloff. Should range from 0 to 1
     public float MovementSpeed = 5.0f;
-    public Vector2 TargetPosition = new Vector2(0, 0); // Target position to move towards
     private bool StartRewind = false; // A flag for starting the rewind
 
     private Rewind rewind; // The Rewind script
@@ -31,11 +33,6 @@ public class Movement : MonoBehaviour
 
         // The delegate for our Rewind component to call when we assign Rewind.Rewdining = true
         rewind.RewindStart = (List<Vector2> history) => { points = history.ToArray(); currIndex = 0; };
-
-        Vector3 direction = new Vector3(TargetPosition.x, TargetPosition.y, 0) - transform.position;
-        direction.Normalize();
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward); // Why do I need -90 here? Unit is weird
 
         startLifeTime = Time.time;
     }
@@ -92,14 +89,19 @@ public class Movement : MonoBehaviour
         }
     }
 
-    private void OnMouseDown()
-    {
-        //StartRewind = true;
-    }
-
     private void OnMouseOver()
     {
         if (Input.GetMouseButton(0))
             StartRewind = true;
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // If we hit the ground, destroy us
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            Destroy(gameObject);
+        }
+    }
+
 }
