@@ -3366,6 +3366,10 @@ PrefabInstance:
       propertyPath: invincibilityFrameTime
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 407397633, guid: 9f0160642427e2149a4eb5afd65ba430, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 783093004e217824b88bf2832a9d9174, type: 2}
     - target: {fileID: 5085464422919179190, guid: 9f0160642427e2149a4eb5afd65ba430, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.57
