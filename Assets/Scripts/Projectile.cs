@@ -73,10 +73,12 @@ public class Projectile : MonoBehaviour
             StartRewind = true;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        // If we hit the ground, destroy us
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        Debug.Log("Collider entered");
+
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             Destroy(gameObject);
         }
