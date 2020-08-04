@@ -7,9 +7,9 @@ public class Health : MonoBehaviour, IDamageable
     [SerializeField]
     int health = 10;
 
-    public void Damage()
+    public void Damage(int amount)
     {
-        health -= 1;
+        health -= amount;
         Debug.Log("Took Damage, health = " + health);
     }
 }

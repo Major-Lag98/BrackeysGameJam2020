@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 5085464422919179189}
   - component: {fileID: 5085464422919179185}
   - component: {fileID: 5085464422919179188}
-  - component: {fileID: 407397630}
   - component: {fileID: 407397629}
   - component: {fileID: 7628588664032973948}
+  - component: {fileID: 407397630}
+  - component: {fileID: 5086528704221891859}
   m_Layer: 8
   m_Name: PlayerTemp
   m_TagString: Untagged
@@ -153,27 +154,6 @@ MonoBehaviour:
   wallLeap: {x: 18, y: 17}
   wallSlideSpeedMax: 3
   wallStickTime: 0.25
---- !u!50 &407397630
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5085464422919179194}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &407397629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,3 +181,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxEnergy: 100
   PassiveEnergyRegen: 0.1
+--- !u!50 &407397630
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5085464422919179194}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &5086528704221891859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5085464422919179194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6c7612c127389b48a925240a6fc977b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10

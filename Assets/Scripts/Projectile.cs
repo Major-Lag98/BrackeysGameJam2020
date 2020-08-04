@@ -89,7 +89,7 @@ public class Projectile : MonoBehaviour
         if (damageable != null)
         {
             Debug.Log("Hit the player");
-            damageable.Damage();
+            damageable.Damage(1);
             Destroy(gameObject);
         }
     }
