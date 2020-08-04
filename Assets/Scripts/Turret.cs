@@ -27,10 +27,10 @@ public class Turret : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         // If a projectile hits us, destroy both of us
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Projectile"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Projectile"))
         {
             //TODO probably a better way to do this but it was easy at the time
             var isRewinding = collision.gameObject.GetComponent<Rewind>().Rewinding;
