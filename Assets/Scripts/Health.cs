@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Health : MonoBehaviour, IDamageable
+public class Health : MonoBehaviour, IDamageable, IHealable
 {
+    public int MaxHealth = 10;
+
     [SerializeField]
-    int health = 10;
+    int currHealth = 10;
 
     [SerializeField]
     float invincibilityFrameTime = 5;
@@ -51,9 +53,14 @@ public class Health : MonoBehaviour, IDamageable
             invincible = true;
             animator.SetBool("Invincible", true);
         }
-            
 
-        health -= amount;
-        Debug.Log("Took Damage, health = " + health);
+
+        currHealth = Mathf.Clamp(currHealth - amount, 0, MaxHealth);
+        Debug.Log("Took Damage, health = " + currHealth);
+    }
+
+    public void Heal(int amount)
+    {
+        currHealth = Mathf.Clamp(currHealth + amount, 0, MaxHealth);
     }
 }

@@ -10,11 +10,6 @@ public class Energy : MonoBehaviour
 
     private float currentEnergy = 100;
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         currentEnergy = Mathf.Clamp(currentEnergy + PassiveEnergyRegen, 0, MaxEnergy);

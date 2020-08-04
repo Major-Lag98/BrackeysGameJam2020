@@ -13,9 +13,6 @@ public class Projectile : MonoBehaviour
 
     private Rewind rewind; // The Rewind script
 
-    private Vector2[] points = new Vector2[0]; // An array of points to follow when we are rewinding.
-    private int currIndex = 0; // Current index of the points above.
-
     private float currRewindCounter = 0; //Counter used for applying the animation curve which slows movement until stopping.
     private const float timeToStop = 0.3f;
     private readonly float lifespan = 10f;

@@ -1,13 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RollingBoulder : MonoBehaviour
 {
     public AnimationCurve curve;
-
-    private Vector2[] points = new Vector2[0];
-    private int currIndex = 0;
 
     private Rewind _rewind;
 
@@ -27,11 +22,6 @@ public class RollingBoulder : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         _rewind = GetComponent<Rewind>();
-        _rewind.OnRewindStart = (List<Vector2> points) =>
-        {
-            this.points = points.ToArray();
-            this.currIndex = 0;
-        };
     }
 
     // Update is called once per frame
