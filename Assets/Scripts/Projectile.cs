@@ -98,10 +98,20 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("Collider entered");
-
+        
+        // we git the ground
         if (collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
+            Destroy(gameObject);
+        }
+
+
+        // we hit somthing damageable
+        IDamageable damageable = collider.GetComponent<IDamageable>();
+        if (damageable != null)
+        {
+            Debug.Log("Hit the player");
+            damageable.Damage();
             Destroy(gameObject);
         }
     }
