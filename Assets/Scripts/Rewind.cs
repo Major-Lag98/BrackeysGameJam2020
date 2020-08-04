@@ -7,7 +7,13 @@ public class Rewind : MonoBehaviour
 
     // If we want premature optimization, we could make this a Vector2[] with a predefined size and slice it when needed.
     // Then we could reuse the array without clearing or garbage collection. Need to use a counter with it though.
-    private List<Vector2> History = new List<Vector2>();
+    private List<RewindFrame> History = new List<RewindFrame>();
+
+    private int currHistoryIndex = -1;
+    private float currTimeCounter = 0;
+    private float currTimeDifference = 0;
+    private Vector2 beginPosition = new Vector2();
+    private Vector3 beginRotation = new Vector3();
 
     //TODO Maybe include rotation and other needed stuff into history?
 
@@ -18,16 +24,18 @@ public class Rewind : MonoBehaviour
             _rewinding = value;
             if (value)
             {
-                History.Reverse();
-                RewindStart(History); // Invoke delegate with history
-                History = new List<Vector2>(); //Instead of clearing we'll just make a new list
+                History.Reverse(); // Reverse the history here to use
+                currHistoryIndex = 0; // Reset the counter
+                beginPosition = transform.position; // Initially set our begin position
+                beginRotation = transform.rotation.eulerAngles; // Initially set our begin position
+                currTimeDifference = 0.016f; // Initially set the time difference as 1s/60s
             }
         } 
     }
 
-    public delegate void OnRewindStart(List<Vector2> history);
+    public delegate void OnRewindStartDelegate(List<Vector2> history);
 
-    public OnRewindStart RewindStart;
+    public OnRewindStartDelegate OnRewindStart;
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +49,43 @@ public class Rewind : MonoBehaviour
         // If we're not rewinding yet, record our position.
         if (!Rewinding)
         {
-            History.Add(new Vector2(transform.position.x, transform.position.y));
+            // Record our current position and timeStamp
+            var currentPosition = new Vector2(transform.position.x, transform.position.y);
+            var timeStamp = Time.time;
+
+            // Create the frame and add it
+            var frame = new RewindFrame(currentPosition, timeStamp, transform.rotation.eulerAngles);
+            History.Add(frame);
+        }
+        else
+        {
+            RewindMovement();
+        }
+    }
+
+    void RewindMovement()
+    {
+        if(currHistoryIndex < History.Count - 1)
+        {
+            var frame = History[currHistoryIndex]; // Get the frame
+            var ratio = currTimeCounter / currTimeDifference; // The ratio of time. This is so we can get a value/1 for the lerp
+            transform.position = Vector2.Lerp(beginPosition, frame.Position, ratio); // Lerp our position using that ratio
+            transform.eulerAngles = Vector3.Lerp(beginRotation, frame.Rotation, ratio);
+            currTimeCounter += Time.deltaTime;
+
+            if(ratio >= 1) // If we're past one then on to the next frame
+            {
+                currHistoryIndex++;
+                currTimeCounter -= currTimeDifference; // Subtract our current time difference, don't set to 0 or else bad
+                currTimeDifference = History[currHistoryIndex - 1].Timestamp - History[currHistoryIndex].Timestamp; // Get the difference between our current and last frame
+                beginPosition = new Vector2(transform.position.x, transform.position.y); // Our new being position to lerp from
+                beginRotation = transform.rotation.eulerAngles; // Our new being position to lerp from
+            }
+        }
+        else
+        {
+            // Destroy us when we're done
+            Destroy(gameObject);
         }
     }
 }
