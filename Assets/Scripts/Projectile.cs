@@ -31,9 +31,6 @@ public class Projectile : MonoBehaviour
     {
         rewind = GetComponent<Rewind>();
 
-        // The delegate for our Rewind component to call when we assign Rewind.Rewdining = true
-        rewind.RewindStart = (List<Vector2> history) => { points = history.ToArray(); currIndex = 0; };
-
         startLifeTime = Time.time;
     }
 
@@ -42,8 +39,6 @@ public class Projectile : MonoBehaviour
     {
         if (!rewind.Rewinding) // Regular move
             RegularMove();
-        else // Rewinding move
-            RewindMove();
     }
 
     private void RegularMove() 
@@ -70,23 +65,6 @@ public class Projectile : MonoBehaviour
         // If our start time + lifespan is greater than the current time, kill us!
         if (Time.time >= startLifeTime + lifespan)
             Destroy(gameObject);
-    }
-
-    private void RewindMove()
-    {
-        if (currIndex >= 0)
-        {
-            var currPoint = points[currIndex]; // get our curr point
-
-            transform.position = Vector2.MoveTowards(transform.position, currPoint, MovementSpeed * Time.deltaTime);
-            if (Vector2.Distance(transform.position, currPoint) <= MovementSpeed * 2 * Time.deltaTime) // Move until close
-            {
-                if (currIndex < points.Length - 1)
-                    currIndex += 1;
-                else
-                    Destroy(this.gameObject); // When we finish rewinding, destroy us
-            }
-        }
     }
 
     private void OnMouseOver()
