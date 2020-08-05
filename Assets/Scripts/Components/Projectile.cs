@@ -81,14 +81,24 @@ public class Projectile : MonoBehaviour
         }
 
 
+        var layer = collider.gameObject.layer;
+        var playerLayer = LayerMask.NameToLayer("Player");
+
         // we hit somthing damageable
         IDamageable damageable = collider.GetComponent<IDamageable>();
         if (damageable == null) Debug.Log("Damageable == null");
         if (damageable != null)
         {
             Debug.Log(damageable.ToString());
-            damageable.Damage(1);
-            Destroy(gameObject);
+
+            // If it's a player and not rewinding, damage. If it's NOT a player and it is rewinding, damage!
+            if ((layer == playerLayer && !rewind.Rewinding) || (layer != playerLayer && rewind.Rewinding))
+            {
+                damageable.Damage(1);
+                Destroy(gameObject);
+            }
+
+
         }
     }
 }
