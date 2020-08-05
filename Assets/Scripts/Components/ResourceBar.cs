@@ -7,7 +7,7 @@ public class ResourceBar : MonoBehaviour
     Transform bar;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake() //Awake is called before start. Will be problems if you try to find "Bar" later in execution
     {
         bar = transform.Find("Bar");
     }
