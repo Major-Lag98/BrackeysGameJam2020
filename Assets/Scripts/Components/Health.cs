@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour, IDamageable, IHealable
 {
@@ -84,5 +85,24 @@ public class Health : MonoBehaviour, IDamageable, IHealable
         if (healthBar == null) return; //only if we have a healthbar to set
 
         healthBar.SetSize(((float)currHealth / (float)maxHealth)); //set the size of the healthbar to the percent of health remaining
+
+        if (currHealth <= 0)
+        {
+            Die();
+        }
     }
+
+    void Die()
+    {
+        if (gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //reload current scene
+        }
+
+        if (gameObject.layer == LayerMask.NameToLayer("Turret"))
+        {
+            Destroy(gameObject);
+        }
+    }
+
 }
