@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1878265243963194826}
   - component: {fileID: 685499947}
   m_Layer: 10
-  m_Name: RewindTestObject
+  m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
