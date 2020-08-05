@@ -3,6 +3,12 @@ using UnityEngine;
 
 public class Rewind : MonoBehaviour
 {
+    public bool Recording = true;
+
+    public OnRewindFinishedDelegate OnRewindFinished;
+
+    public delegate void OnRewindFinishedDelegate();
+
     private bool _rewinding = false;
 
     // If we want premature optimization, we could make this a Vector2[] with a predefined size and slice it when needed.
@@ -46,8 +52,8 @@ public class Rewind : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // If we're not rewinding yet, record our position.
-        if (!Rewinding)
+        // If we're not rewinding yet and set to record, record our position and rotation.
+        if (!Rewinding && Recording)
         {
             // Record our current position and timeStamp
             var currentPosition = new Vector2(transform.position.x, transform.position.y);
@@ -57,7 +63,7 @@ public class Rewind : MonoBehaviour
             var frame = new RewindFrame(currentPosition, timeStamp, transform.rotation.eulerAngles);
             History.Add(frame);
         }
-        else
+        else if(Rewinding)
         {
             RewindMovement();
         }
@@ -85,7 +91,10 @@ public class Rewind : MonoBehaviour
         else
         {
             // Destroy us when we're done
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            Rewinding = false;
+            History.Clear();
+            OnRewindFinished();
         }
     }
 }

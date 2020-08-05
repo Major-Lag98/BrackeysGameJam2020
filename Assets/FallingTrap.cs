@@ -6,14 +6,33 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class FallingTrap : MonoBehaviour
 {
+
+    private Rewind _rewindComp;
     // Start is called before the first frame update
     void Start()
     {
-        transform.parent.Find("Trigger").GetComponent<TriggerArea>().OnTriggerEnter += (Collider2D collision) =>
+        _rewindComp = GetComponent<Rewind>();
+        var trigger = transform.parent.Find("Trigger");
+        var rigidBody = transform.parent.Find("FallingObject").GetComponent<Rigidbody2D>();
+        var rewind = GetComponent<Rewind>();
+
+        // Callback for when we are finished rewinding
+        rewind.OnRewindFinished = () => {
+            rigidBody.velocity = new Vector2(0, 0); //Reset the velocity or it'll keep increasing after rewind
+            rigidBody.simulated = true;  // Simulate our body again
+        };
+
+        // Called when something enters the trigger area
+        trigger.GetComponent<TriggerArea>().OnTriggerEnter += (Collider2D collision) =>
         {
-            print("Hello");
+            // If it's the player
             if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
-                transform.parent.Find("FallingObject").GetComponent<Rigidbody2D>().simulated = true;
+            {
+                rewind.Recording = true; // Make sure we start recording
+                // Start simualting the falling object
+                rigidBody.simulated = true;
+                Destroy(trigger.gameObject); // Destroy the trigger because it causes problems
+            }
         };
     }
 
@@ -27,5 +46,14 @@ public class FallingTrap : MonoBehaviour
         }
         else if (layer == LayerMask.NameToLayer("Ground")) // If we hit the ground, just destroy us
             Destroy(gameObject);
+    }
+
+    private void OnMouseOver()
+    {
+        if (Input.GetMouseButton(0) && !_rewindComp.Rewinding)
+        {
+            GetComponent<Rigidbody2D>().simulated = false;
+            _rewindComp.Rewinding = true;
+        }
     }
 }
