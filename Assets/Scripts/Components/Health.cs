@@ -51,7 +51,11 @@ public class Health : MonoBehaviour, IDamageable, IHealable
         {
             invincibilityFrameTime = invincibilityFrameTimeCap;
             invincible = false;
-            animator.SetBool("Invincible", false);
+            if (animator != null)
+            {
+                animator.SetBool("Invincible", false);
+            }
+            
         }
     }
 
