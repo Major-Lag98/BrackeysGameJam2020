@@ -86,11 +86,8 @@ public class Projectile : MonoBehaviour
 
         // we hit somthing damageable
         IDamageable damageable = collider.GetComponent<IDamageable>();
-        if (damageable == null) Debug.Log("Damageable == null");
         if (damageable != null)
         {
-            Debug.Log(damageable.ToString());
-
             // If it's a player and not rewinding, damage. If it's NOT a player and it is rewinding, damage!
             if ((layer == playerLayer && !rewind.Rewinding) || (layer != playerLayer && rewind.Rewinding))
             {
