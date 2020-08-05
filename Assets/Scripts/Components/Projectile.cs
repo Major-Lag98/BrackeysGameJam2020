@@ -80,7 +80,6 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject);
         }
 
-
         var layer = collider.gameObject.layer;
         var playerLayer = LayerMask.NameToLayer("Player");
 
