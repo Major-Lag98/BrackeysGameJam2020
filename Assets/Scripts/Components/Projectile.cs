@@ -83,9 +83,10 @@ public class Projectile : MonoBehaviour
 
         // we hit somthing damageable
         IDamageable damageable = collider.GetComponent<IDamageable>();
+        if (damageable == null) Debug.Log("Damageable == null");
         if (damageable != null)
         {
-            Debug.Log("Hit the player");
+            Debug.Log(damageable.ToString());
             damageable.Damage(1);
             Destroy(gameObject);
         }

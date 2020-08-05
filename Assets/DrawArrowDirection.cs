@@ -7,7 +7,7 @@ public class DrawArrowDirection : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        print(transform.up);
+        //print(transform.up);
 
         var target = new Vector3(2, 0, 0);
         var bottom = target + new Vector3(-0.5f, -0.25f, 0);
