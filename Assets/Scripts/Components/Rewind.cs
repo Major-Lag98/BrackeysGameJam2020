@@ -47,9 +47,14 @@ public class Rewind : MonoBehaviour
                 }
                 else
                     _rewinding = false;
+
+                Recording = false;
             }
             else
+            {
                 _rewinding = value;
+                Recording = true;
+            }
         } 
     }
 
