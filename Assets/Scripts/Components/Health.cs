@@ -24,7 +24,7 @@ public class Health : MonoBehaviour, IDamageable, IHealable
     Animator animator;
 
     [SerializeField]
-    HealthBar healthBar;
+    ResourceBar healthBar;
 
     
 
@@ -35,7 +35,7 @@ public class Health : MonoBehaviour, IDamageable, IHealable
 
 
         currHealth = maxHealth;
-        healthBar = GetComponentInChildren<HealthBar>();
+        healthBar = transform.Find("Healthbar").GetComponent<ResourceBar>();
         SetHealthBar();
         
 

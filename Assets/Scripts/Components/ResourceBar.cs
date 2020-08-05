@@ -2,19 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Health))]
-
-public class HealthBar : MonoBehaviour
+public class ResourceBar : MonoBehaviour
 {
-
     Transform bar;
-
 
     // Start is called before the first frame update
     void Start()
     {
         bar = transform.Find("Bar");
-        
     }
 
     public void SetSize(float percentSize)
