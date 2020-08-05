@@ -2513,6 +2513,14 @@ PrefabInstance:
       propertyPath: m_BodyType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2040671610816147234, guid: 76f2b44c91875ea4eb31b23e14f4a1af, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.05485916
+      objectReference: {fileID: 0}
+    - target: {fileID: 2040671610816147234, guid: 76f2b44c91875ea4eb31b23e14f4a1af, type: 3}
+      propertyPath: m_Size.x
+      value: 1.7793427
+      objectReference: {fileID: 0}
     - target: {fileID: 3513021486715982940, guid: 76f2b44c91875ea4eb31b23e14f4a1af, type: 3}
       propertyPath: m_Name
       value: Turret
