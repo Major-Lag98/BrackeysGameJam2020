@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Health : MonoBehaviour, IDamageable, IHealable
 {
-    public int MaxHealth = 10;
-
     [SerializeField]
-    int currHealth = 10;
+    int maxHealth = 10;
+
+    public int currHealth;
 
     [SerializeField]
     float invincibilityFrameTime = 5;
@@ -18,14 +18,25 @@ public class Health : MonoBehaviour, IDamageable, IHealable
 
     bool invincible = false;
 
-    Rigidbody2D rb;
+    //Rigidbody2D rb;
 
     Animator animator;
 
+    [SerializeField]
+    HealthBar healthBar;
+
+    
+
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        //rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
+
+        currHealth = maxHealth;
+        healthBar = GetComponentInChildren<HealthBar>();
+        SetHealthBar();
+        
 
         invincibilityFrameTimeCap = invincibilityFrameTime;
     }
@@ -54,13 +65,20 @@ public class Health : MonoBehaviour, IDamageable, IHealable
             animator.SetBool("Invincible", true);
         }
 
-
-        currHealth = Mathf.Clamp(currHealth - amount, 0, MaxHealth);
-        Debug.Log("Took Damage, health = " + currHealth);
+        currHealth = Mathf.Clamp(currHealth - amount, 0, maxHealth);
+        SetHealthBar();
     }
 
     public void Heal(int amount)
     {
-        currHealth = Mathf.Clamp(currHealth + amount, 0, MaxHealth);
+        currHealth = Mathf.Clamp(currHealth + amount, 0, maxHealth);
+        SetHealthBar();
+    }
+
+    void SetHealthBar() //should be called whenever you change health value
+    {
+        if (healthBar == null) return; //only if we have a healthbar to set
+
+        healthBar.SetSize(((float)currHealth / (float)maxHealth)); //set the size of the healthbar to the percent of health remaining
     }
 }
