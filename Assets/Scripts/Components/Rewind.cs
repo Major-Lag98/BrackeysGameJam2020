@@ -5,9 +5,8 @@ public class Rewind : MonoBehaviour
 {
     public bool Recording = true;
 
-    public OnRewindFinishedDelegate OnRewindFinished;
-
-    public delegate void OnRewindFinishedDelegate();
+    [Range(0, 100)]
+    public float EnergyUse = 20f;
 
     private bool _rewinding = false;
 
@@ -21,27 +20,38 @@ public class Rewind : MonoBehaviour
     private Vector2 beginPosition = new Vector2();
     private Vector3 beginRotation = new Vector3();
 
+
+    public delegate void OnRewindFinishedDelegate();
+    public delegate void OnRewindStartDelegate();
+
+    public OnRewindFinishedDelegate OnRewindFinished;
+    public OnRewindStartDelegate OnRewindStart;
+
+
     //TODO Maybe include rotation and other needed stuff into history?
 
     public bool Rewinding { 
         get => _rewinding; 
         set 
         {
-            _rewinding = value;
             if (value)
             {
-                History.Reverse(); // Reverse the history here to use
-                currHistoryIndex = 0; // Reset the counter
-                beginPosition = transform.position; // Initially set our begin position
-                beginRotation = transform.rotation.eulerAngles; // Initially set our begin position
-                currTimeDifference = 0.016f; // Initially set the time difference as 1s/60s
+                if (Manager.Instance.PlayerObject.GetComponent<Energy>().UseEnergy(EnergyUse))
+                {
+                    _rewinding = value;
+                    History.Reverse(); // Reverse the history here to use
+                    currHistoryIndex = 0; // Reset the counter
+                    beginPosition = transform.position; // Initially set our begin position
+                    beginRotation = transform.rotation.eulerAngles; // Initially set our begin position
+                    currTimeDifference = 0.016f; // Initially set the time difference as 1s/60s
+                }
+                else
+                    _rewinding = false;
             }
+            else
+                _rewinding = value;
         } 
     }
-
-    public delegate void OnRewindStartDelegate(List<Vector2> history);
-
-    public OnRewindStartDelegate OnRewindStart;
 
     // Start is called before the first frame update
     void Start()
@@ -94,7 +104,7 @@ public class Rewind : MonoBehaviour
             //Destroy(gameObject);
             Rewinding = false;
             History.Clear();
-            OnRewindFinished();
+            OnRewindFinished?.Invoke();
         }
     }
 }

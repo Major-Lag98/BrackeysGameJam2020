@@ -22,7 +22,8 @@ public class Turret : MonoBehaviour
         counter += Time.deltaTime;
         if(counter > FireRate) 
         {
-            ProjectileFactory.CreateProjectile(Projectile, transform.localScale.x > 0 ? 0 : 180, FirePosition.transform.position);
+            var projectile = ProjectileFactory.CreateProjectile(Projectile, transform.localScale.x > 0 ? 0 : 180, FirePosition.transform.position);
+            projectile.transform.parent = transform.parent;
             counter -= FireRate;
         }
     }

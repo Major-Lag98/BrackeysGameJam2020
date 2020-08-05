@@ -14,10 +14,12 @@ public class FallingTrap : MonoBehaviour
         _rewindComp = GetComponent<Rewind>();
         var trigger = transform.parent.Find("Trigger");
         var rigidBody = transform.parent.Find("FallingObject").GetComponent<Rigidbody2D>();
-        var rewind = GetComponent<Rewind>();
+
+        // When we start rewinding, stop simulating our rigidbody
+        _rewindComp.OnRewindStart = () => { GetComponent<Rigidbody2D>().simulated = false; };
 
         // Callback for when we are finished rewinding
-        rewind.OnRewindFinished = () => {
+        _rewindComp.OnRewindFinished = () => {
             rigidBody.velocity = new Vector2(0, 0); //Reset the velocity or it'll keep increasing after rewind
             rigidBody.simulated = true;  // Simulate our body again
         };
@@ -28,7 +30,7 @@ public class FallingTrap : MonoBehaviour
             // If it's the player
             if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
             {
-                rewind.Recording = true; // Make sure we start recording
+                _rewindComp.Recording = true; // Make sure we start recording
                 // Start simualting the falling object
                 rigidBody.simulated = true;
                 Destroy(trigger.gameObject); // Destroy the trigger because it causes problems
@@ -52,7 +54,6 @@ public class FallingTrap : MonoBehaviour
     {
         if (Input.GetMouseButton(0) && !_rewindComp.Rewinding)
         {
-            GetComponent<Rigidbody2D>().simulated = false;
             _rewindComp.Rewinding = true;
         }
     }
