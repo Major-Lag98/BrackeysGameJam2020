@@ -698,6 +698,8 @@ GameObject:
   m_Component:
   - component: {fileID: 255361178}
   - component: {fileID: 255361177}
+  - component: {fileID: 255361180}
+  - component: {fileID: 255361179}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -755,6 +757,42 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &255361179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255361176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99008f1909800824c9eb6ef1e08adf17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SlowingCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  TotalShakeTime: 1
+  ShakeIntensity: 1
+  NoiseScale: 10
+--- !u!114 &255361180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255361176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44d70cc20219cd84593f67d248eafe36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Offset: {x: 0, y: 0, z: 0}
+  m_ApplyAfter: 1
+  m_PreserveComposition: 0
 --- !u!1 &292658131
 GameObject:
   m_ObjectHideFlags: 0

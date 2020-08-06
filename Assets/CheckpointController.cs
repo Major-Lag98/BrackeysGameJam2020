@@ -33,6 +33,6 @@ public class CheckpointController : MonoBehaviour
     }
 
 
-    public static GameObject GetCurrentCheckpoint() => _currTrigger.gameObject;
+    public GameObject GetCurrentCheckpoint() => _currTrigger.gameObject;
 
 }

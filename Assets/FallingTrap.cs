@@ -46,10 +46,18 @@ public class FallingTrap : MonoBehaviour
         if (layer == LayerMask.NameToLayer("Player")) // If it hits the player, hurt them and destroy myself
         {
             collision.gameObject.GetComponent<Health>().Damage(DamageToPlayer);
-            Destroy(gameObject);
+            DestroyMe();
         }
         else if (layer == LayerMask.NameToLayer("Ground")) // If we hit the ground, just destroy us
-            Destroy(gameObject);
+        {
+            DestroyMe();
+        }
+    }
+
+    private void DestroyMe()
+    {
+        Destroy(gameObject);
+        ScreenShakeController.Instance.Shake();
     }
 
     private void OnMouseOver()
