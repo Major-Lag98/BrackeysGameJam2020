@@ -96,7 +96,9 @@ public class Health : MonoBehaviour, IDamageable, IHealable
     {
         if (gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //reload current scene
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //reload current scene
+            gameObject.transform.position = CheckpointController.GetCurrentCheckpoint().transform.position;
+            Heal(1000000);
         }
 
         if (gameObject.layer == LayerMask.NameToLayer("Turret"))
