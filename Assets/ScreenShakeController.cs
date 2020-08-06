@@ -52,12 +52,16 @@ public class ScreenShakeController : MonoBehaviour
     {
         var scaleX = counter * NoiseScale;
         var scaleY = (shakeTime-counter)*NoiseScale;
+
         var noiseX = Mathf.PerlinNoise(scaleX, scaleY);
         var noiseY = Mathf.PerlinNoise(scaleY, scaleX);
+
         noiseX -= 0.5f; // Normalize it to -0.5 to 0.5
         noiseY -= 0.5f; // Normalize it to -0.5 to 0.5
+
         noiseX *= (ShakeIntensity*SlowingCurve.Evaluate(counter/shakeTime)); //Up its intensity
         noiseY *= (ShakeIntensity * SlowingCurve.Evaluate(counter / shakeTime)); //Up its intensity
+
         CMcamOffset.m_Offset = new Vector3(noiseX, noiseY, 1);
     }
 
