@@ -40,7 +40,6 @@ public class ScreenShakeController : MonoBehaviour
         {
             _counter += Time.deltaTime;
             ScreenShake(_counter, TotalShakeTime);
-            print("Shaking");
             if (_counter >= TotalShakeTime)
             {
                 _shaking = false;
