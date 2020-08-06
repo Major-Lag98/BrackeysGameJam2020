@@ -57,6 +57,8 @@ public class ArrowTrap : MonoBehaviour
         var comp = projectile.GetComponent<Projectile>();
         comp.MovementSpeed = ProjectileSpeedAtSpawn;
         comp.DamageToPlayer = DamageToPlayerFromProjectile;
+
+        projectile.transform.parent = transform.parent;
     }
 
     private bool ReadyToFire() 
