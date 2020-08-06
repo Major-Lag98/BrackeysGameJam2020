@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(Door))]
-public class DoorEditor : Editor
+[CustomEditor(typeof(ArrowTrap))]
+public class TrapEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        Door myTarget = (Door)target;
+        ArrowTrap myTarget = (ArrowTrap)target;
 
         DrawDefaultInspector();
 
         //myTarget.experience = EditorGUILayout.IntField("Experience", myTarget.experience);
         //EditorGUILayout.LabelField("Level", myTarget.Level.ToString());
 
-        if (GUILayout.Button("Set Target Position"))
+        if (GUILayout.Button("Randomize Initial Delay"))
         {
-            myTarget.TargetPosition = myTarget.transform.position;
+            myTarget.InitialDelay = Random.Range(0, myTarget.FireDelay);
         }
     }
 }

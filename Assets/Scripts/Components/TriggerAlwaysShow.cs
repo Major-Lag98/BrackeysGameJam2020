@@ -6,6 +6,8 @@ using UnityEngine;
 public class TriggerAlwaysShow : MonoBehaviour
 {
 
+    public Color TriggerColor = Color.yellow;
+
     private BoxCollider2D colliderComp;
 
     // Start is called before the first frame update
@@ -17,7 +19,7 @@ public class TriggerAlwaysShow : MonoBehaviour
     private void OnDrawGizmos()
     {
         var bounds = colliderComp.bounds;
-        Gizmos.color = Color.yellow;
+        Gizmos.color = TriggerColor;
         if(colliderComp != null)
             Gizmos.DrawWireCube(bounds.center, bounds.size);
     }
