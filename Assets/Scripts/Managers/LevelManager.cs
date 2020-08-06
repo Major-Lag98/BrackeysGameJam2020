@@ -13,6 +13,11 @@ public class LevelManager : MonoBehaviour
 
     State state = State.Play;
 
+    public delegate void OnSceneSwitchedDelegate();
+
+    public OnSceneSwitchedDelegate OnSceneSwitched;
+    public OnSceneSwitchedDelegate PreSceneSwitched;
+
     [SerializeField]
     GameObject pauseMenu = null;
 
@@ -27,7 +32,19 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        OnSceneSwitched += () =>
+        {
+            if (inPresent)
+            {
+                pastTiles.SetActive(false);
+                presentTiles.SetActive(true);
+            }
+            else
+            {
+                pastTiles.SetActive(true);
+                presentTiles.SetActive(false);
+            }
+        };
     }
 
     // Update is called once per frame
@@ -35,7 +52,9 @@ public class LevelManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
+            PreSceneSwitched?.Invoke();
             inPresent = !inPresent;
+            OnSceneSwitched();
         }
 
 
@@ -51,20 +70,6 @@ public class LevelManager : MonoBehaviour
             }
             SwitchState();
         }
-
-        if (inPresent)
-        {
-            pastTiles.SetActive(false);
-            presentTiles.SetActive(true);
-        }
-        else
-        {
-            pastTiles.SetActive(true);
-            presentTiles.SetActive(false);
-        }
-            
-
-
     }
 
 
