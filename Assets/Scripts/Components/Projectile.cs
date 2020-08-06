@@ -9,6 +9,8 @@ public class Projectile : MonoBehaviour
 {
     public AnimationCurve PauseCurve; // The animation curve to apply movement falloff. Should range from 0 to 1
     public float MovementSpeed = 5.0f;
+    public int DamageToPlayer = 1;
+
     private bool StartRewind = false; // A flag for starting the rewind
 
     private Rewind rewind; // The Rewind script
@@ -90,7 +92,7 @@ public class Projectile : MonoBehaviour
             // If it's a player and not rewinding, damage. If it's NOT a player and it is rewinding, damage!
             if ((layer == playerLayer && !rewind.Rewinding) || (layer != playerLayer && rewind.Rewinding))
             {
-                damageable.Damage(1);
+                damageable.Damage(DamageToPlayer);
                 Destroy(gameObject);
             }
 

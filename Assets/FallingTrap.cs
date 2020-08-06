@@ -7,6 +7,8 @@ using UnityEngine;
 public class FallingTrap : MonoBehaviour
 {
 
+    public int DamageToPlayer = 10;
+
     private Rewind _rewindComp;
     // Start is called before the first frame update
     void Start()
@@ -43,7 +45,7 @@ public class FallingTrap : MonoBehaviour
         var layer = collision.gameObject.layer;
         if (layer == LayerMask.NameToLayer("Player")) // If it hits the player, hurt them and destroy myself
         {
-            collision.gameObject.GetComponent<Health>().Damage(1);
+            collision.gameObject.GetComponent<Health>().Damage(DamageToPlayer);
             Destroy(gameObject);
         }
         else if (layer == LayerMask.NameToLayer("Ground")) // If we hit the ground, just destroy us
