@@ -29,6 +29,8 @@ public class WaitRoom : MonoBehaviour
             Debug.Log("Triggered");
             triggered = true;
 
+            exitDoor.GetComponent<Door>().StartMove();
+
             enterAnim.SetTrigger("Close");
             exitAnim.SetTrigger("Open");
 
