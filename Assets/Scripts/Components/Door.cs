@@ -25,9 +25,6 @@ public class Door : MonoBehaviour
     {
         if(_moving && _counter <= TimeToMove)
         {
-            print(_counter / TimeToMove);
-            print("start " + _startPosition);
-            print("target " + TargetPosition);
             transform.position = Vector3.Lerp(_startPosition, TargetPosition, _counter / TimeToMove);
             _counter += Time.deltaTime;
         }
