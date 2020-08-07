@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 [CustomEditor(typeof(Door))]
@@ -17,7 +18,13 @@ public class DoorEditor : Editor
 
         if (GUILayout.Button("Set Target Position"))
         {
-            myTarget.TargetPosition = myTarget.transform.position;
+            myTarget.SetTargetPosition(myTarget.transform.position);
+        }
+
+        if (GUI.changed)
+        {
+            EditorUtility.SetDirty(myTarget);
+            EditorSceneManager.MarkSceneDirty(myTarget.gameObject.scene);
         }
     }
 }
