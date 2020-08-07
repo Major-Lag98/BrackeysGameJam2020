@@ -32,6 +32,7 @@ public class Projectile : MonoBehaviour
         startLifeTime = Time.time;
     }
 
+
     // Update is called once per frame
     void Update()
     {
@@ -90,4 +91,11 @@ public class Projectile : MonoBehaviour
         //Otherwise just destroy us
         Destroy(gameObject);
     }
+
+    public void SetTimelineAgnostic()
+    {
+        transform.parent = null;
+        GetComponent<SpriteRenderer>().color = new Color(227f/255f, 14f/255f, 42f/255f);
+    }
+
 }
