@@ -50,7 +50,6 @@ public class DrawTimeCircle : MonoBehaviour
                     if (collider.gameObject.layer == LayerMask.NameToLayer("Projectile")) // If it's a projectile
                     {
                         collider.transform.parent = null; // Clear the parent so we're outside everything
-                        collider.gameObject.GetComponent<Projectile>().Ownership = 1;
                     }
                 }
 
