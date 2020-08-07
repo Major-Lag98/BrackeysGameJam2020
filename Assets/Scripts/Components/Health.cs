@@ -70,6 +70,11 @@ public class Health : MonoBehaviour, IDamageable, IHealable
 
         currHealth = Mathf.Clamp(currHealth - amount, 0, maxHealth);
         SetHealthBar();
+
+        if (currHealth <= 0)
+        {
+            Die();
+        }
     }
 
     public void Heal(int amount)
@@ -84,10 +89,7 @@ public class Health : MonoBehaviour, IDamageable, IHealable
 
         healthBar.SetSize(((float)currHealth / (float)maxHealth)); //set the size of the healthbar to the percent of health remaining
 
-        if (currHealth <= 0)
-        {
-            Die();
-        }
+        
     }
 
     void Die()
