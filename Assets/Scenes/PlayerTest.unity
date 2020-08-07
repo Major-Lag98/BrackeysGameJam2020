@@ -2785,7 +2785,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1
-  currHealth: 0
+  currHealth: 1
   invincibilityFrameTime: 5
   canBeInvincible: 0
   healthBar: {fileID: 0}
