@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour
     public AnimationCurve PauseCurve; // The animation curve to apply movement falloff. Should range from 0 to 1
     public float MovementSpeed = 5.0f;
     public int DamageToPlayer = 1;
+    public int Ownership = 0; //0 means owned by the world, 1 is for player owned
 
     private bool StartRewind = false; // A flag for starting the rewind
 
@@ -29,6 +30,7 @@ public class Projectile : MonoBehaviour
     void Start()
     {
         rewind = GetComponent<Rewind>();
+        rewind.OnRewindFinished += () => Ownership = transform.parent == null ? 1 : 0;
 
         startLifeTime = Time.time;
     }
@@ -69,7 +71,10 @@ public class Projectile : MonoBehaviour
     private void OnMouseOver()
     {
         if (Input.GetMouseButton(1))
+        {
             StartRewind = true;
+            Ownership = 1;
+        }
     }
 
 
@@ -90,7 +95,7 @@ public class Projectile : MonoBehaviour
         if (damageable != null)
         {
             // If it's a player and not rewinding, damage. If it's NOT a player and it is rewinding, damage!
-            if ((layer == playerLayer && !rewind.Rewinding) || (layer != playerLayer && rewind.Rewinding))
+            if ((layer == playerLayer) || (Ownership == 1))
             {
                 damageable.Damage(DamageToPlayer);
                 Destroy(gameObject);
