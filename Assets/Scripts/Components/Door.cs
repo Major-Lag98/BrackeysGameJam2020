@@ -33,6 +33,7 @@ public class Door : MonoBehaviour
                 {
                     _moving = true;
                     _counter = 0;
+                    _reverse = false;
                 }
             };
 
