@@ -31,21 +31,19 @@ public class Door : MonoBehaviour
             {
                 if (collider.gameObject.layer == LayerMask.NameToLayer("Player"))
                 {
-                    _moving = true;
-                    _counter = 0;
-                    _reverse = false;
+                    _moving = true; // Set us to moving
+                    _reverse = false; // Make sure that we're not reversing anymore
                 }
             };
 
-            if (ReverseOnTriggerExit)
+            if (ReverseOnTriggerExit) // If we want to reverse when leaving the trigger
             {
-                Trigger.OnTriggerExit += collider =>
+                Trigger.OnTriggerExit += collider => // Add a delegate event
                 {
                     if (collider.gameObject.layer == LayerMask.NameToLayer("Player"))
                     {
                         _moving = true;
                         _reverse = true;
-                        _counter = 0;
                     }
                 };
             }
@@ -55,14 +53,16 @@ public class Door : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_moving && _counter <= TimeToMove)
+        if(_moving && (_counter <= TimeToMove && _counter >= 0))
         {
             if(!_reverse)
-                transform.position = Vector3.Lerp(_startPosition, TargetPosition, _counter / TimeToMove);
-            else
-                transform.position = Vector3.Lerp(TargetPosition, _startPosition, _counter / TimeToMove);
+                _counter = Mathf.Clamp(_counter + Time.deltaTime, 0, TimeToMove);
 
-            _counter += Time.deltaTime;
+            else
+                _counter = Mathf.Clamp(_counter - Time.deltaTime, 0, TimeToMove);
+
+
+            transform.position = Vector3.Lerp(_startPosition, TargetPosition, _counter / TimeToMove);
         }
     }
 
