@@ -5,12 +5,15 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     public float TimeToMove = 5f;
-    public Vector3 TargetPosition;
 
     private float _counter = 0f;
     private bool _moving = false;
     private Vector2 _startPosition;
     private Animator _animator;
+
+    [Tooltip("Move area")]
+    [SerializeField]
+    public Vector3 TargetPosition;
 
     private AnimatorState animatorState;
 
@@ -47,6 +50,11 @@ public class Door : MonoBehaviour
         //_animator.Play(animatorState.stateName);
         //_animator.StartPlayback();
         //_animator.playbackTime = animatorState.playbackTime;
+    }
+
+    public void SetTargetPosition(Vector3 targetPosition)
+    {
+        TargetPosition = targetPosition;
     }
 
     private struct AnimatorState
