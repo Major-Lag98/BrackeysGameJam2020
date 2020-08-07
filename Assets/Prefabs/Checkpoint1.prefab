@@ -26,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3550401835241149715}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.77, y: 2.71, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 659fa69adea2cc54fb7ffd9cce74e5bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TriggerColor: {r: 0.035195347, g: 1, b: 0.015686274, a: 1}
 --- !u!61 &3550401835241149741
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -83,3 +84,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57af96d546516d844833bf0582eb7fa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OneShot: 0
