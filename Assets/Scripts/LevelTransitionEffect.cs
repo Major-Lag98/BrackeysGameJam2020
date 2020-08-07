@@ -79,6 +79,7 @@ public class LevelTransitionEffect : MonoBehaviour
             if (counter >= 0.4)
             {
                 counter = 0;
+                transitionImageMaterial.SetFloat("Time", counter);
                 transitionining = false;
                 TransitionImage.enabled = false;
             }
