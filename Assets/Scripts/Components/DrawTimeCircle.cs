@@ -20,7 +20,7 @@ public class DrawTimeCircle : MonoBehaviour
     {
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (Input.GetMouseButton(0))
         {
@@ -47,7 +47,7 @@ public class DrawTimeCircle : MonoBehaviour
                     if (collider == null) // If we hit null, break out of our loop cause we're done
                         break;
 
-                    if(collider.gameObject.layer == LayerMask.NameToLayer("Projectile")) // If it's a projectile
+                    if (collider.gameObject.layer == LayerMask.NameToLayer("Projectile")) // If it's a projectile
                     {
                         collider.transform.parent = null; // Clear the parent so we're outside everything
                         collider.gameObject.GetComponent<Projectile>().Ownership = 1;
