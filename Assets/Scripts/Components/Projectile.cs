@@ -9,7 +9,7 @@ public class Projectile : MonoBehaviour
 {
     public AnimationCurve PauseCurve; // The animation curve to apply movement falloff. Should range from 0 to 1
     public float MovementSpeed = 5.0f;
-    public int DamageToPlayer = 1;
+    public int ProjectileDamage = 1;
     public int Ownership = 0; //0 means owned by the world, 1 is for player owned
 
     private bool StartRewind = false; // A flag for starting the rewind
@@ -80,13 +80,6 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        
-        // we git the ground
-        if (collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            Destroy(gameObject);
-        }
-
         var layer = collider.gameObject.layer;
         var playerLayer = LayerMask.NameToLayer("Player");
 
@@ -94,14 +87,11 @@ public class Projectile : MonoBehaviour
         IDamageable damageable = collider.GetComponent<IDamageable>();
         if (damageable != null)
         {
-            // If it's a player and not rewinding, damage. If it's NOT a player and it is rewinding, damage!
-            if ((layer == playerLayer) || (Ownership == 1))
-            {
-                damageable.Damage(DamageToPlayer);
-                Destroy(gameObject);
-            }
-
-
+            damageable.Damage(ProjectileDamage);
+            Destroy(gameObject);
         }
+
+        //Otherwise just destroy us
+        Destroy(gameObject);
     }
 }
