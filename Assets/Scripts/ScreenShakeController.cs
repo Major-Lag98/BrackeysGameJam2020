@@ -43,6 +43,7 @@ public class ScreenShakeController : MonoBehaviour
             if (_counter >= TotalShakeTime)
             {
                 _shaking = false;
+                _counter = 0;
             }
         }
     }
