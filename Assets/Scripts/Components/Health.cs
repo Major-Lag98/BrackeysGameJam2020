@@ -33,11 +33,9 @@ public class Health : MonoBehaviour, IDamageable, IHealable
         //rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
-
         currHealth = maxHealth;
-        healthBar = transform.Find("Healthbar").GetComponent<ResourceBar>();
+        healthBar = transform.Find("Healthbar")?.GetComponent<ResourceBar>();
         SetHealthBar();
-        
 
         invincibilityFrameTimeCap = invincibilityFrameTime;
     }
