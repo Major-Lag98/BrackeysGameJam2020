@@ -2666,6 +2666,27 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 421381816720560550, guid: dccfe95aa0360164683f9e99569c1ed3, type: 3}
   m_PrefabInstance: {fileID: 421381817156349185}
   m_PrefabAsset: {fileID: 0}
+--- !u!50 &706329768
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 706329767}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!4 &706329769 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 421381816720560552, guid: dccfe95aa0360164683f9e99569c1ed3, type: 3}
@@ -8789,26 +8810,26 @@ CompositeCollider2D:
   m_ColliderPaths: []
   m_CompositePaths:
     m_Paths:
-    - - {x: 91.99998, y: -0.00001}
-      - {x: 92.00004, y: 0.99999}
-      - {x: 93.000015, y: 1.0000252}
-      - {x: 93.00004, y: 1.99999}
-      - {x: 94.000015, y: 2.0000253}
-      - {x: 94.00004, y: 2.99999}
-      - {x: 95.000015, y: 3.0000253}
+    - - {x: 91.99997, y: 0}
+      - {x: 92.00003, y: 1}
+      - {x: 93, y: 1.0000293}
+      - {x: 93.00003, y: 2}
+      - {x: 94, y: 2.0000293}
+      - {x: 94.00003, y: 3}
+      - {x: 95, y: 3.0000293}
       - {x: 94.99997, y: 25}
       - {x: 41, y: 24.999971}
       - {x: 41.00003, y: 16}
       - {x: 42, y: 16.000029}
       - {x: 42.00003, y: 24}
       - {x: 94, y: 23.999971}
-      - {x: 93.99996, y: 4.00001}
-      - {x: 92.999985, y: 3.9999747}
-      - {x: 92.99996, y: 3.00001}
-      - {x: 91.999985, y: 2.9999747}
-      - {x: 91.99996, y: 2.00001}
-      - {x: 90.999985, y: 1.9999748}
-      - {x: 90.99996, y: 1.00001}
+      - {x: 93.99997, y: 4}
+      - {x: 93, y: 3.999971}
+      - {x: 92.99997, y: 3}
+      - {x: 92, y: 2.999971}
+      - {x: 91.99997, y: 2}
+      - {x: 91, y: 1.9999708}
+      - {x: 90.99997, y: 1}
       - {x: 70, y: 1.0000294}
       - {x: 70.00003, y: 11}
       - {x: 82, y: 10.99997}
@@ -13613,7 +13634,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 421381816720560550, guid: dccfe95aa0360164683f9e99569c1ed3, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 421381816720560552, guid: dccfe95aa0360164683f9e99569c1ed3, type: 3}
       propertyPath: m_LocalPosition.x
