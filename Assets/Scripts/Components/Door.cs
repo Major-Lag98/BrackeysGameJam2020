@@ -5,9 +5,12 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     public float TimeToMove = 5f;
+    public TriggerArea Trigger;
+    public bool ReverseOnTriggerExit = false;
 
     private float _counter = 0f;
     private bool _moving = false;
+    private bool _reverse = false;
     private Vector2 _startPosition;
     private Animator _animator;
 
@@ -21,6 +24,31 @@ public class Door : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _startPosition = transform.position;
+
+        if(Trigger != null)
+        {
+            Trigger.OnTriggerEnter += (collider) =>
+            {
+                if (collider.gameObject.layer == LayerMask.NameToLayer("Player"))
+                {
+                    _moving = true;
+                    _counter = 0;
+                }
+            };
+
+            if (ReverseOnTriggerExit)
+            {
+                Trigger.OnTriggerExit += collider =>
+                {
+                    if (collider.gameObject.layer == LayerMask.NameToLayer("Player"))
+                    {
+                        _moving = true;
+                        _reverse = true;
+                        _counter = 0;
+                    }
+                };
+            }
+        }
     }
 
     // Update is called once per frame
@@ -28,7 +56,11 @@ public class Door : MonoBehaviour
     {
         if(_moving && _counter <= TimeToMove)
         {
-            transform.position = Vector3.Lerp(_startPosition, TargetPosition, _counter / TimeToMove);
+            if(!_reverse)
+                transform.position = Vector3.Lerp(_startPosition, TargetPosition, _counter / TimeToMove);
+            else
+                transform.position = Vector3.Lerp(TargetPosition, _startPosition, _counter / TimeToMove);
+
             _counter += Time.deltaTime;
         }
     }
