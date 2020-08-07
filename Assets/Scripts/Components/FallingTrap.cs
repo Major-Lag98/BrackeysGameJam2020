@@ -9,6 +9,8 @@ public class FallingTrap : MonoBehaviour
 
     public int DamageToPlayer = 10;
 
+    private Vector2 _savedVelocity = new Vector2();
+
     private Rewind _rewindComp;
     // Start is called before the first frame update
     void Start()
@@ -40,6 +42,12 @@ public class FallingTrap : MonoBehaviour
         };
     }
 
+    private void FixedUpdate()
+    {
+        // Save our velocity each frame
+        _savedVelocity = GetComponent<Rigidbody2D>().velocity;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         var layer = collision.gameObject.layer;
@@ -52,6 +60,16 @@ public class FallingTrap : MonoBehaviour
         {
             DestroyMe();
         }
+    }
+
+    private void OnDisable()
+    {
+        //_savedVelocity = GetComponent<Rigidbody2D>().velocity;
+    }
+
+    private void OnEnable()
+    {
+        GetComponent<Rigidbody2D>().velocity = _savedVelocity;
     }
 
     private void DestroyMe()
