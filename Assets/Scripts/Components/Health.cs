@@ -100,11 +100,9 @@ public class Health : MonoBehaviour, IDamageable, IHealable
             gameObject.transform.position = CheckpointController.Instance.GetCurrentCheckpoint().transform.position;
             Heal(1000000);
         }
-
-        if (gameObject.layer == LayerMask.NameToLayer("Turret"))
+        else
         {
             Destroy(gameObject);
         }
     }
-
 }
