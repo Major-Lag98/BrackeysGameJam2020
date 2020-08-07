@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class CheckpointController : MonoBehaviour
 {
-    public List<TriggerArea> CheckpointTriggers;
-
-    private static GameObject _currTrigger = null;
+    private static GameObject _currCheckpoint = null;
 
     public static CheckpointController Instance;
 
@@ -17,22 +15,24 @@ public class CheckpointController : MonoBehaviour
             Instance = this;
 
         // Add a callback for each of our checkpoints
-        CheckpointTriggers.ForEach(trigger =>
+        foreach (Transform child in transform)
         {
+            // Get the trigger
+            var trigger = child.gameObject.GetComponent<TriggerArea>();
             // When something enters the trigger
             trigger.OnTriggerEnter = collision =>
             {
                 // If it's the player
-                if(collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+                if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
                 {
-                    _currTrigger = trigger.gameObject;
-                    CheckpointTriggers.Remove(trigger); // Remove from our list since we've already saved here.
+                    _currCheckpoint = trigger.gameObject; // Set our current checkpoint
                 }
             };
-        });
+
+
+        }
     }
 
-
-    public GameObject GetCurrentCheckpoint() => _currTrigger.gameObject;
+    public GameObject GetCurrentCheckpoint() => _currCheckpoint.gameObject;
 
 }
