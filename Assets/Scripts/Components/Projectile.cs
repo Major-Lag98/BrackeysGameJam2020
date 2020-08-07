@@ -68,7 +68,7 @@ public class Projectile : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(1))
             StartRewind = true;
     }
 

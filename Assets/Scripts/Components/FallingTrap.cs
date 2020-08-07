@@ -62,7 +62,7 @@ public class FallingTrap : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (Input.GetMouseButton(0) && !_rewindComp.Rewinding)
+        if (Input.GetMouseButton(1) && !_rewindComp.Rewinding)
         {
             _rewindComp.Rewinding = true;
         }
