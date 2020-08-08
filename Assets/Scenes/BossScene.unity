@@ -1033,6 +1033,7 @@ MonoBehaviour:
   semiCircleAttackAmountOfProjectiles: 10
   semiCircleBurstCount: 5
   secondsOfContinousFire: 5
+  animator: {fileID: 1265531509}
 --- !u!114 &1265531508
 MonoBehaviour:
   m_ObjectHideFlags: 0
