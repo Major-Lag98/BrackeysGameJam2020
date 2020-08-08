@@ -30,7 +30,7 @@ public class Door : MonoBehaviour
         {
             Trigger.OnTriggerEnter += (collider) =>
             {
-                if (collider.gameObject.layer == LayerMask.NameToLayer("Player"))
+                if (collider.gameObject.layer == LayerMask.NameToLayer("Player") && _counter < TimeToMove)
                 {
                     _moving = true; // Set us to moving
                     _reverse = false; // Make sure that we're not reversing anymore
@@ -41,7 +41,7 @@ public class Door : MonoBehaviour
             {
                 Trigger.OnTriggerExit += collider => // Add a delegate event
                 {
-                    if (collider.gameObject.layer == LayerMask.NameToLayer("Player"))
+                    if (collider.gameObject.layer == LayerMask.NameToLayer("Player") && _counter > 0)
                     {
                         _moving = true;
                         _reverse = true;
