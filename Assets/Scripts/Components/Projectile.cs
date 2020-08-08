@@ -73,7 +73,7 @@ public class Projectile : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (Input.GetMouseButton(1) && !rewind.Rewinding)
+        if (Input.GetMouseButton(1) && !rewind.Rewinding && Manager.Instance.PlayerObject.GetComponent<Energy>().CurrentEnergy >= 20)
         {
             StartRewind = true;
             Ownership = 1;

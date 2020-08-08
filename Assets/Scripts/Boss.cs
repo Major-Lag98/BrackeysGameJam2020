@@ -72,9 +72,12 @@ public class Boss : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) //trigger to start boss
     {
-        if (active) return; //do nothing if boss is already fighting
-        Trigger.enabled = false;
-        active = true;
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            if (active) return; //do nothing if boss is already fighting
+            Trigger.enabled = false;
+            active = true;
+        }
     }
 
     // Update is called once per frame
