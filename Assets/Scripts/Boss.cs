@@ -36,6 +36,13 @@ public class Boss : MonoBehaviour
 
     [SerializeField]
     int semiCircleAttackAmountOfProjectiles = 10;
+    [SerializeField]
+    int semiCircleBurstCount = 3;
+
+    [SerializeField]
+    int secondsOfContinousFire = 10;
+
+    
 
     
 
@@ -139,8 +146,8 @@ public class Boss : MonoBehaviour
     /// <returns></returns>
     IEnumerator ContinuousFireAttack()
     {
-        
-        for (int i = 0; i < 20; i++)
+        float seconds = secondsOfContinousFire * 10; // multiply by 10 because we are technicaly dividing by 10 with our yield so we cancle it out
+        for (int i = 0; i < seconds; i++)
         {
 
             Debug.Log("Launching ball #" + (i+1) + " at player");
@@ -165,13 +172,14 @@ public class Boss : MonoBehaviour
 
          //pi is half a circle so divide it by how many balls we want to spawn
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < semiCircleBurstCount; i++)
         {
             float angleIncrement = Mathf.PI / (semiCircleAttackAmountOfProjectiles + i); //pi is half a circle so divide it by how many balls we want to spawn... +i so the player cant just stay in one spot to dodge the attack
 
             Debug.Log("Launch SemiCircle Attack " + (i + 1));
-            for (float j = 0; j < semiCircleAttackAmountOfProjectiles; j++)
+            for (float j = 0; j < (semiCircleAttackAmountOfProjectiles + i); j++)
             {
+                
                 Vector2 direction = new Vector2(Mathf.Cos(angleIncrement * j), Mathf.Sin(angleIncrement * j));
                 float angleToTarget = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 ProjectileFactory.CreateProjectile(projectilePrefab, angleToTarget + 90, projectileSpawn.position); //+90 becuause we want the start of spawning of the projectiles to be at 90 degrees
