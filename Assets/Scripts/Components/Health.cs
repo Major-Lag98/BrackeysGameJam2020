@@ -27,7 +27,16 @@ public class Health : MonoBehaviour, IDamageable, IHealable
     [SerializeField]
     ResourceBar healthBar;
 
-    
+    //[SerializeField]
+    //Boss theBoss = null;
+
+    //[SerializeField]
+    //SpriteRenderer bossRenderer = null;
+
+
+    [SerializeField]
+    BossDefeatedManager boss;
+
 
     void Start()
     {
@@ -101,9 +110,20 @@ public class Health : MonoBehaviour, IDamageable, IHealable
             gameObject.transform.position = CheckpointController.Instance.GetCurrentCheckpoint().transform.position;
             Heal(1000000);
         }
+        else if (gameObject.name == "Boss")
+        {
+
+            
+            boss.defeated = true;
+            Destroy(gameObject);
+        }
         else
         {
             Destroy(gameObject);
         }
     }
+
+    
+
+
 }

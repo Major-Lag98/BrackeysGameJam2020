@@ -86,24 +86,6 @@ public class Boss : MonoBehaviour
             {
                 case AttackState.Idle:
                     idleTime -= Time.deltaTime;
-                    //bossMoveLeftTime -= Time.deltaTime;
-
-                    //if (bossMoveLeftTime <= 0)
-                    //{
-                    //    bossMovingLeft = !bossMovingLeft;
-                    //    bossMoveLeftTime = bossMoveLeftTimeMax;
-                    //}
-
-                    //if (bossMovingLeft)
-                    //{
-                    //    rb.velocity = Vector2.left;
-                    //}
-                    //else
-                    //{
-                    //    rb.velocity = Vector2.right;
-                    //}
-
-                    
                     animator.StopPlayback();
                     if (idleTime <= 0)
                     {
