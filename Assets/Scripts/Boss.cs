@@ -77,6 +77,7 @@ public class Boss : MonoBehaviour
             if (active) return; //do nothing if boss is already fighting
             Trigger.enabled = false;
             active = true;
+            GetComponent<SpriteRenderer>().color = Color.red;
         }
     }
 
