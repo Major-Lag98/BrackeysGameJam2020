@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour
     public AnimationCurve PauseCurve; // The animation curve to apply movement falloff. Should range from 0 to 1
     public float MovementSpeed = 5.0f;
     public int ProjectileDamage = 1;
+    public int Ownership = 0; // 0 for world, 1 for player
 
     private bool StartRewind = false; // A flag for starting the rewind
 
@@ -75,6 +76,7 @@ public class Projectile : MonoBehaviour
         if (Input.GetMouseButton(1) && !rewind.Rewinding)
         {
             StartRewind = true;
+            Ownership = 1;
         }
     }
 
@@ -86,23 +88,21 @@ public class Projectile : MonoBehaviour
 
         // we hit somthing damageable
         IDamageable damageable = collider.GetComponent<IDamageable>();
-        if (damageable != null)
+        if ((damageable != null && Ownership == 1) || (damageable != null && layer == playerLayer))
         {
             damageable.Damage(ProjectileDamage);
-            //Debug.Log("Ball hit damageable");
-            //Destroy(gameObject); //no need for this destroy as we will destroy anyway
+            Destroy(gameObject);
         }
 
-        //Otherwise just destroy us
-        //Debug.Log("Ball hit wall");
-        //Debug.Log(collider.name);
-        Destroy(gameObject);
+        if (layer == LayerMask.NameToLayer("Ground"))
+            Destroy(gameObject);
     }
 
     public void SetTimelineAgnostic()
     {
         transform.parent = null;
         GetComponent<SpriteRenderer>().color = new Color(227f/255f, 14f/255f, 42f/255f);
+        Ownership = 1;
     }
 
 }
