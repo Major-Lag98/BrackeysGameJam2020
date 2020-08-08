@@ -7,6 +7,7 @@ public class Door : MonoBehaviour
     public float TimeToMove = 5f;
     public TriggerArea Trigger;
     public bool ReverseOnTriggerExit = false;
+    public bool ScreenShakeOnFinish = false;
 
     private float _counter = 0f;
     private bool _moving = false;
@@ -63,6 +64,13 @@ public class Door : MonoBehaviour
 
 
             transform.position = Vector3.Lerp(_startPosition, TargetPosition, _counter / TimeToMove);
+
+            // If we're finished and we're not going to reverse and we want to shake, shake!
+            if (_counter >= TimeToMove && !ReverseOnTriggerExit && ScreenShakeOnFinish && _moving)
+            {
+                ScreenShakeController.Instance.Shake();
+                _moving = false;
+            }
         }
     }
 
