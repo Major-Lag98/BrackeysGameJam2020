@@ -35,4 +35,8 @@ public class CheckpointController : MonoBehaviour
 
     public GameObject GetCurrentCheckpoint() => _currCheckpoint.gameObject;
 
+    public void MovePlayerToLastCheckpoint()
+        => Manager.Instance.PlayerObject.GetComponent<Health>().MovePlayerToCheckpoint(_currCheckpoint.transform);
+        
+
 }
