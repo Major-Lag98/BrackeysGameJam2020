@@ -888,6 +888,8 @@ GameObject:
   - component: {fileID: 1265531504}
   - component: {fileID: 1265531503}
   - component: {fileID: 1265531507}
+  - component: {fileID: 1265531508}
+  - component: {fileID: 1265531509}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -1001,7 +1003,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1265531502}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.41, y: 11.14, z: 0}
+  m_LocalPosition: {x: 14.41, y: 10.64, z: 0}
   m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children:
   - {fileID: 17462853}
@@ -1031,6 +1033,42 @@ MonoBehaviour:
   semiCircleAttackAmountOfProjectiles: 10
   semiCircleBurstCount: 5
   secondsOfContinousFire: 5
+--- !u!114 &1265531508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1265531502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6c7612c127389b48a925240a6fc977b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
+  currHealth: 0
+  invincibilityFrameTime: 5
+  canBeInvincible: 0
+  healthBar: {fileID: 0}
+--- !u!95 &1265531509
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1265531502}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2b1591f87b62d9e4183bb87691517fff, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2020008880
 GameObject:
   m_ObjectHideFlags: 0

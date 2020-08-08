@@ -42,6 +42,9 @@ public class Boss : MonoBehaviour
     [SerializeField]
     int secondsOfContinousFire = 10;
 
+    [SerializeField]
+    Animator animator;
+
     
 
     
@@ -64,6 +67,7 @@ public class Boss : MonoBehaviour
         active = false;
         idleTime = idleTimeMax;
         bossMoveLeftTime = bossMoveLeftTimeMax;
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision) //trigger to start boss
@@ -82,29 +86,31 @@ public class Boss : MonoBehaviour
             {
                 case AttackState.Idle:
                     idleTime -= Time.deltaTime;
-                    bossMoveLeftTime -= Time.deltaTime;
+                    //bossMoveLeftTime -= Time.deltaTime;
 
-                    if (bossMoveLeftTime <= 0)
-                    {
-                        bossMovingLeft = !bossMovingLeft;
-                        bossMoveLeftTime = bossMoveLeftTimeMax;
-                    }
+                    //if (bossMoveLeftTime <= 0)
+                    //{
+                    //    bossMovingLeft = !bossMovingLeft;
+                    //    bossMoveLeftTime = bossMoveLeftTimeMax;
+                    //}
+
+                    //if (bossMovingLeft)
+                    //{
+                    //    rb.velocity = Vector2.left;
+                    //}
+                    //else
+                    //{
+                    //    rb.velocity = Vector2.right;
+                    //}
+
                     
-                    if (bossMovingLeft)
-                    {
-                        rb.velocity = Vector2.left;
-                    }
-                    else
-                    {
-                        rb.velocity = Vector2.right;
-                    }
-                        
-
+                    animator.StopPlayback();
                     if (idleTime <= 0)
                     {
                         idleTime = idleTimeMax;
                         rb.velocity = Vector2.zero;
                         ChangToRandomAttackState();
+                        animator.StartPlayback();
                     }
                     break;
 
