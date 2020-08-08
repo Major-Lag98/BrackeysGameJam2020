@@ -25,7 +25,9 @@ public class DrawTimeCircle : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             var mouse = Input.mousePosition;
-            _points.Add(Camera.main.ScreenToWorldPoint(new Vector3(mouse.x, mouse.y, 1))); // Record as world position
+            var worldPoint = Camera.main.ScreenToWorldPoint(new Vector3(mouse.x, mouse.y, 1));
+            worldPoint.z = 1; // We have to force this or our calculations will be wrong later
+            _points.Add(worldPoint); // Record as world position
             _dragging = true;
 
             DrawLines(_points);
@@ -80,7 +82,8 @@ public class DrawTimeCircle : MonoBehaviour
     private Tuple<Vector3, float> MakeCircle(List<Vector3> points)
     {
         var summed = points.Aggregate((source, aggregate) => source + aggregate); // Simply add all the points together
-        var center = summed / new Vector2(points.Count, points.Count); // Divide by number of points to get center
+        var center = summed / points.Count; // Divide by number of points to get center
+        center.z = 0f;
         var radius = 0f;
         points.ForEach(v => radius += Vector3.Distance(v, center));
         radius /= points.Count;
