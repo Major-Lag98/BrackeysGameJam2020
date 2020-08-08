@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Boss : MonoBehaviour
 {
-    //[SerializeField]
-    //GameObject projectilePrefab;
+    [SerializeField]
+    GameObject projectilePrefab;
 
-    //[SerializeField]
-    //Transform targetPosition;
+    [SerializeField]
+    Transform targetPosition;
 
-    //[SerializeField]
-    //Transform projectileSpawnPosition;
+    [SerializeField]
+    Transform projectileSpawn;
 
     [SerializeField]
     float idleTimeMax = 10;//default is 10, you can change in editor
@@ -29,6 +29,13 @@ public class Boss : MonoBehaviour
     bool bossMovingLeft = true; //flag to make him move back and forth
 
     Rigidbody2D rb;
+
+    [SerializeField]
+    BoxCollider2D Trigger;
+
+
+    [SerializeField]
+    int semiCircleAttackAmountOfProjectiles = 10;
 
     
 
@@ -55,7 +62,7 @@ public class Boss : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) //trigger to start boss
     {
         if (active) return; //do nothing if boss is already fighting
-
+        Trigger.enabled = false;
         active = true;
     }
 
@@ -89,6 +96,7 @@ public class Boss : MonoBehaviour
                     if (idleTime <= 0)
                     {
                         idleTime = idleTimeMax;
+                        rb.velocity = Vector2.zero;
                         ChangToRandomAttackState();
                     }
                     break;
@@ -131,10 +139,18 @@ public class Boss : MonoBehaviour
     /// <returns></returns>
     IEnumerator ContinuousFireAttack()
     {
-        for (int i = 0; i < 10; i++)
+        
+        for (int i = 0; i < 20; i++)
         {
+
             Debug.Log("Launching ball #" + (i+1) + " at player");
-            yield return new WaitForSeconds(.5f);
+
+            Vector2 vectorToTarget = targetPosition.position - projectileSpawn.position;
+            float angleToTarget = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
+
+            ProjectileFactory.CreateProjectile(projectilePrefab, angleToTarget, projectileSpawn.position);
+
+            yield return new WaitForSeconds(.1f);
         }
         attackState = AttackState.Idle;
         attacking = false;
@@ -146,9 +162,21 @@ public class Boss : MonoBehaviour
     /// <returns></returns>
     IEnumerator SemiCircleAttack()
     {
+
+         //pi is half a circle so divide it by how many balls we want to spawn
+
         for (int i = 0; i < 3; i++)
         {
+            float angleIncrement = Mathf.PI / (semiCircleAttackAmountOfProjectiles + i); //pi is half a circle so divide it by how many balls we want to spawn... +i so the player cant just stay in one spot to dodge the attack
+
             Debug.Log("Launch SemiCircle Attack " + (i + 1));
+            for (float j = i; j < semiCircleAttackAmountOfProjectiles; j++)
+            {
+                Vector2 direction = new Vector2(Mathf.Cos(angleIncrement * j), Mathf.Sin(angleIncrement * j));
+                float angleToTarget = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                ProjectileFactory.CreateProjectile(projectilePrefab, angleToTarget + 90, projectileSpawn.position); //+90 becuause we want the start of spawning of the projectiles to be at 90 degrees
+            }
+            
             yield return new WaitForSeconds(1);
         }
         attackState = AttackState.Idle;

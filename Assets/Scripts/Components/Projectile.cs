@@ -63,7 +63,11 @@ public class Projectile : MonoBehaviour
 
         // If our start time + lifespan is greater than the current time, kill us!
         if (Time.time >= startLifeTime + lifespan)
+        {
+            //Debug.Log("Ball life span reached");
             Destroy(gameObject);
+        }
+            
     }
 
     private void OnMouseOver()
@@ -85,10 +89,13 @@ public class Projectile : MonoBehaviour
         if (damageable != null)
         {
             damageable.Damage(ProjectileDamage);
-            Destroy(gameObject);
+            //Debug.Log("Ball hit damageable");
+            //Destroy(gameObject); //no need for this destroy as we will destroy anyway
         }
 
         //Otherwise just destroy us
+        //Debug.Log("Ball hit wall");
+        //Debug.Log(collider.name);
         Destroy(gameObject);
     }
 
