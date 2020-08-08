@@ -170,7 +170,7 @@ public class Boss : MonoBehaviour
             float angleIncrement = Mathf.PI / (semiCircleAttackAmountOfProjectiles + i); //pi is half a circle so divide it by how many balls we want to spawn... +i so the player cant just stay in one spot to dodge the attack
 
             Debug.Log("Launch SemiCircle Attack " + (i + 1));
-            for (float j = i; j < semiCircleAttackAmountOfProjectiles; j++)
+            for (float j = 0; j < semiCircleAttackAmountOfProjectiles; j++)
             {
                 Vector2 direction = new Vector2(Mathf.Cos(angleIncrement * j), Mathf.Sin(angleIncrement * j));
                 float angleToTarget = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
