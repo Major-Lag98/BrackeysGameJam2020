@@ -8,6 +8,7 @@ public class Health : MonoBehaviour, IDamageable, IHealable
     [SerializeField]
     int maxHealth = 10;
 
+    [HideInInspector]
     public int currHealth;
 
     [SerializeField]
