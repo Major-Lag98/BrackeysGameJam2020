@@ -187,6 +187,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OneShot: 0
+  Mask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &3053962285207800444
 MonoBehaviour:
   m_ObjectHideFlags: 0

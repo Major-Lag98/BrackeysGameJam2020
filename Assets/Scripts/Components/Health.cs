@@ -106,9 +106,7 @@ public class Health : MonoBehaviour, IDamageable, IHealable
     {
         if (gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //reload current scene
-            MovePlayerToCheckpoint(CheckpointController.Instance.GetCurrentCheckpoint().transform);
-            Heal(1000000);
+            StartCoroutine("DelayResetPlayer");
         }
         else if (gameObject.name == "Boss")
         {
@@ -123,7 +121,28 @@ public class Health : MonoBehaviour, IDamageable, IHealable
         }
     }
 
-    
+    private IEnumerator DelayResetPlayer()
+    {
+        var renderer = GetComponent<SpriteRenderer>();
+        var player = GetComponent<Player>();
+
+        renderer.enabled = false; // Disable our renderer
+        player.enabled = false; // Disable our player input
+        foreach (Transform child in transform) // Disable all children
+            child.gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(1.5f);
+
+        MovePlayerToCheckpoint(CheckpointController.Instance.GetCurrentCheckpoint().transform);
+        Heal(1000000);
+
+        renderer.enabled = true; // Enable our renderer
+        player.enabled = true; // Enable our player input
+        foreach (Transform child in transform) // Enable all children
+            child.gameObject.SetActive(true);
+    }
+
+
     public void MovePlayerToCheckpoint(Transform checkpoint)
     {
         gameObject.transform.position = checkpoint.position;
