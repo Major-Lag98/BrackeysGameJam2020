@@ -24,6 +24,8 @@ public class Player : MonoBehaviour
 	Vector3 velocity;
 	float velocityXSmoothing;
 
+	float insideWallCounter = 0f;
+
 	Controller2D controller;
 
 	void Start()
@@ -110,5 +112,19 @@ public class Player : MonoBehaviour
 
 		velocity.y += gravity * Time.deltaTime;
 		controller.Move(velocity * Time.deltaTime);
+		CheckInsideWall();
+	}
+
+	private void CheckInsideWall()
+	{
+		if (controller.CheckInsideWall())
+		{
+			insideWallCounter += Time.deltaTime;
+			if (insideWallCounter >= 0.5f)
+				GetComponent<Health>().Damage(1000);
+		}
+		else
+			insideWallCounter = 0f;
+
 	}
 }

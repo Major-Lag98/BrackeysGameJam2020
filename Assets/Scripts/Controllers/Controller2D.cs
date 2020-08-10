@@ -200,7 +200,19 @@ public class Controller2D : RaycastController
 			}
 		}
 	}
+	public bool CheckInsideWall()
+    {
+		var distance = 1f;
 
+		Vector2 rayRightOrigin = new Vector2(transform.position.x, transform.position.y) + new Vector2(distance, 0);
+		RaycastHit2D hitRight = Physics2D.Raycast(rayRightOrigin, new Vector2(-1, 0), distance, LayerMask.GetMask("Ground"));
+
+		Vector2 rayLefttOrigin = new Vector2(transform.position.x, transform.position.y) + new Vector2(-distance, 0);
+		RaycastHit2D hitLeft = Physics2D.Raycast(rayLefttOrigin, new Vector2(1, 0), distance, LayerMask.GetMask("Ground"));
+		if (hitRight && hitLeft)
+    			return true;
+		return false;
+    }
 
 
 	public struct CollisionInfo
