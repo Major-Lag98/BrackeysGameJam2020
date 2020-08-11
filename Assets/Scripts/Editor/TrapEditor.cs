@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(ArrowTrap))]
+[CustomEditor(typeof(ArrowTrap), true)]
 public class TrapEditor : Editor
 {
     public override void OnInspectorGUI()

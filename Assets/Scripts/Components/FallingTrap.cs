@@ -12,34 +12,40 @@ public class FallingTrap : MonoBehaviour
     private Vector2 _savedVelocity = new Vector2();
 
     private Rewind _rewindComp;
+    private Rigidbody2D rigibody;
+
+    private TriggerArea trigger;
+
     // Start is called before the first frame update
     void Start()
     {
         _rewindComp = GetComponent<Rewind>();
-        var trigger = transform.parent.Find("Trigger");
-        var rigidBody = transform.parent.Find("FallingObject").GetComponent<Rigidbody2D>();
+        trigger = transform.parent.Find("Trigger").GetComponent<TriggerArea>();
+        rigibody = transform.parent.Find("FallingObject").GetComponent<Rigidbody2D>();
 
         // When we start rewinding, stop simulating our rigidbody
         _rewindComp.OnRewindStart = () => { GetComponent<Rigidbody2D>().simulated = false; };
 
         // Callback for when we are finished rewinding
         _rewindComp.OnRewindFinished = () => {
-            rigidBody.velocity = new Vector2(0, 0); //Reset the velocity or it'll keep increasing after rewind
-            rigidBody.simulated = true;  // Simulate our body again
+            rigibody.velocity = new Vector2(0, 0); //Reset the velocity or it'll keep increasing after rewind
+            rigibody.simulated = true;  // Simulate our body again
         };
 
         // Called when something enters the trigger area
-        trigger.GetComponent<TriggerArea>().OnTriggerEnter += (Collider2D collision) =>
+        trigger.AddOntriggerEnterEvent(OnTriggerAreaEntered);
+    }
+
+    private void OnTriggerAreaEntered(Collider2D collider, TriggerArea area)
+    {
+        // If it's the player
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            // If it's the player
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
-            {
-                _rewindComp.Recording = true; // Make sure we start recording
-                // Start simualting the falling object
-                rigidBody.simulated = true;
-                Destroy(trigger.gameObject); // Destroy the trigger because it causes problems
-            }
-        };
+            _rewindComp.Recording = true; // Make sure we start recording
+                                          // Start simualting the falling object
+            rigibody.simulated = true;
+            Destroy(trigger.gameObject); // Destroy the trigger because it causes problems
+        }
     }
 
     private void FixedUpdate()

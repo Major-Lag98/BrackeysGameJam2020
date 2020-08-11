@@ -8,16 +8,15 @@ public class ArrowTrap : MonoBehaviour
 
     public GameObject ProjectilePrefab;
     public float ProjectileSpeedAtSpawn = 1f;
-
     public TrapFireTypeEnum TrapFireType = TrapFireTypeEnum.Regular;
     public float FireDelay = 1f;
     public float InitialDelay = 0f;
     public int DamageToPlayerFromProjectile = 1;
+    public bool TrapActive = true;
 
     private float _timerCounter = 0;
 
     private bool _shot = false;
-
 
     // Start is called before the first frame update
     void Start()
@@ -25,17 +24,19 @@ public class ArrowTrap : MonoBehaviour
         _timerCounter = FireDelay - InitialDelay; // Our ReadyDelay minus InitialDelay will be our starting time
 
         // Get the trigger area and attach a callback to it
-        transform.GetChild(0).GetComponent<TriggerArea>().OnTriggerEnter += (collision) =>
+        transform.GetChild(0).GetComponent<TriggerArea>().AddOntriggerEnterEvent(OnEnterTriggerArea);
+    }
+
+    private void OnEnterTriggerArea(Collider2D collision, TriggerArea area)
+    {
+        var acceptabletype = TrapFireType == TrapFireTypeEnum.Regular || TrapFireType == TrapFireTypeEnum.OneShot;
+        // If our player entered the area and we're ready to fire and only if it's a regular fire type trap
+        if (acceptabletype && ReadyToFire())
         {
-            var acceptabletype = TrapFireType == TrapFireTypeEnum.Regular || TrapFireType == TrapFireTypeEnum.OneShot;
-            // If our player entered the area and we're ready to fire and only if it's a regular fire type trap
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && acceptabletype && ReadyToFire())
-            {
-                // Fire the projectile and reset the timer
-                FireProjectile();
-                _timerCounter = 0f;
-            }
-        };
+            // Fire the projectile and reset the timer
+            FireProjectile();
+            _timerCounter = 0f;
+        }
     }
 
     private void Update()
@@ -72,6 +73,9 @@ public class ArrowTrap : MonoBehaviour
     /// <returns></returns>
     private bool ReadyToFire()
         // We are ready to shoot immediately if we're the type OneShot
-        => _timerCounter >= FireDelay || (TrapFireType == TrapFireTypeEnum.OneShot && !_shot);
+        => TrapActive && _timerCounter >= FireDelay || (TrapFireType == TrapFireTypeEnum.OneShot && !_shot);
+
+    public void SetTrapActive(bool trapActive)
+        => TrapActive = trapActive;
 
 }

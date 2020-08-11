@@ -28,28 +28,27 @@ public class Door : MonoBehaviour
 
         if(Trigger != null)
         {
-            Trigger.OnTriggerEnter += (collider) =>
-            {
-                if (collider.gameObject.layer == LayerMask.NameToLayer("Player") && _counter < TimeToMove)
-                {
-                    _moving = true; // Set us to moving
-                    _reverse = false; // Make sure that we're not reversing anymore
-                }
-            };
+            Trigger.AddOntriggerEnterEvent(OnTriggerAreaEntered);
 
             if (ReverseOnTriggerExit) // If we want to reverse when leaving the trigger
-            {
-                Trigger.OnTriggerExit += collider => // Add a delegate event
-                {
-                    if (collider.gameObject.layer == LayerMask.NameToLayer("Player") && _counter > 0)
-                    {
-                        _moving = true;
-                        _reverse = true;
-                    }
-                };
-            }
+                Trigger.AddOntriggerExitEvent(OnTriggerAreaExited);
         }
     }
+
+    void OnTriggerAreaEntered(Collider2D collider, TriggerArea area)
+    {
+        print("entered");
+        _moving = true; // Set us to moving
+        _reverse = false; // Make sure that we're not reversing anymore
+    }
+
+    void OnTriggerAreaExited(Collider2D collider, TriggerArea area)
+    {
+        print("exited");
+        _moving = true;
+        _reverse = true;
+    }
+
 
     // Update is called once per frame
     void Update()

@@ -22,9 +22,13 @@ public class Energy : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Start()
     {
         energyBar = transform.Find("EnergyBar").GetComponent<ResourceBar>();
+    }
+
+    void Update()
+    {
         CurrentEnergy = Mathf.Clamp(CurrentEnergy + PassiveEnergyRegen*Time.deltaTime, 0, MaxEnergy);
     }
 

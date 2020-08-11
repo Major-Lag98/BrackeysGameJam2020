@@ -20,18 +20,12 @@ public class CheckpointController : MonoBehaviour
             // Get the trigger
             var trigger = child.gameObject.GetComponent<TriggerArea>();
             // When something enters the trigger
-            trigger.OnTriggerEnter = collision =>
-            {
-                // If it's the player
-                if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
-                {
-                    _currCheckpoint = trigger.gameObject; // Set our current checkpoint
-                }
-            };
-
-
+            trigger.AddOntriggerEnterEvent(OnEnterTriggerArea);
         }
     }
+
+    private void OnEnterTriggerArea(Collider2D collision, TriggerArea area)
+     => _currCheckpoint = area.gameObject; // Set our current checkpoint
 
     public GameObject GetCurrentCheckpoint() => _currCheckpoint.gameObject;
 

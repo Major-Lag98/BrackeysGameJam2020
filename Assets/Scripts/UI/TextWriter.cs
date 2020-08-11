@@ -14,7 +14,7 @@ public class TextWriter : MonoBehaviour
     public TriggerArea Trigger;
     public float StartDelay;
 
-    [SerializeField] private float timePerCharacter;
+    [SerializeField] private float timePerCharacter = 0.1f;
 
     private TextMeshProUGUI textMesh; // Our text mesh
 
@@ -32,8 +32,11 @@ public class TextWriter : MonoBehaviour
         if (!UseTrigger)
             StartWriting(StartDelay);
         else
-            Trigger.OnTriggerEnter += _ => StartWriting(StartDelay);
+            Trigger.AddOntriggerEnterEvent(OnEnterTriggerArea);
     }
+
+    void OnEnterTriggerArea(Collider2D _, TriggerArea __)
+     => StartWriting(StartDelay);
 
     /// <summary>
     /// Called to start our text effect object
