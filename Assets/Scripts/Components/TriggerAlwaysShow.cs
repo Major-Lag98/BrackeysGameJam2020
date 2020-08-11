@@ -18,6 +18,9 @@ public class TriggerAlwaysShow : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (colliderComp == null)
+            return;
+
         var bounds = colliderComp.bounds;
         Gizmos.color = TriggerColor;
         if(colliderComp != null)
