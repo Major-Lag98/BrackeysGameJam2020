@@ -66,8 +66,11 @@ public class TextWriter : MonoBehaviour
             currIndex = SkipTokens(text, currIndex); // Skip tokens like <color></color>
             var newText = text.Substring(0, currIndex+1); // Get the text we need to display
             var rest = text.Substring(currIndex + 1);
-            var tokenlessText = RemoveAllTokens(rest); // Removes (temporarily) any future color tokens
-            newText += "<color=#00000000>" + tokenlessText + "</color>"; // Hide the rest of the characters with an invisible character
+            if (InvisibleCharacterPadding)
+            {
+                var tokenlessText = RemoveAllTokens(rest); // Removes (temporarily) any future color tokens
+                newText += "<color=#00000000>" + tokenlessText + "</color>"; // Hide the rest of the characters with an invisible character
+            }
             textMesh.text = newText; // Set it
             currIndex++; //Increment
             yield return new WaitForSeconds(timePerCharacter); // Wait for our desired time
